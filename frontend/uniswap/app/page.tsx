@@ -1,15 +1,16 @@
+"use client";  
 import Image from "next/image";
+import React from "react";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Home() {
+  //swapExactETHForTokens
+  //swapExactTokensForETH
   return (
     <main className="flex justify-center items-center bg-indigo-600 min-h-screen">
       <div className="container">
         <div className="header">
-          <button className="active">Swap</button>
-          <button>Sınır</button>
-          <button>Göndermek</button>
-          <button>Satın almak</button>
-          <button className="settings">⚙️</button>
+          <ConnectButton />
         </div>
         <div className="swapContainer">
           <div className="row">
@@ -31,11 +32,7 @@ export default function Home() {
               {/* Diğer token seçenekleri buraya eklenebilir */}
             </select>
           </div>
-          <button className="connectWallet">Cüzdan bağlayın</button>
-        </div>
-        <div className="footer">
-          Uniswap&apos;in mevcut olduğu yerler:{" "}
-          <a href="https://uniswap.org">English</a>
+          <button className="connectWallet">Swap</button>
         </div>
       </div>
     </main>
