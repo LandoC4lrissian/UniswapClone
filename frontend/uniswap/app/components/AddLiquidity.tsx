@@ -42,25 +42,25 @@ const AddLiquidity = () => {
   }
 
   return (
-    <div className="bg-gray-800 p-5 rounded-lg">
-      <div className="flex justify-between mb-3">
+    <div className="bg-gray-800 p-6 rounded-lg w-[460px] h-[300px]">
+      <div className="flex flex-col space-y-4 mb-4">
         <input
           type="number"
-          className="text-black p-2 rounded-lg w-2/3"
+          className="text-black p-3 rounded-lg w-full"
           placeholder="USDC Amount"
           value={amountUSDC}
           onChange={(e) => setAmountUSDC(e.target.value)}
         />
         <input
           type="number"
-          className="text-black p-2 rounded-lg w-2/3"
+          className="text-black p-3 rounded-lg w-full"
           placeholder="ETH Amount"
           value={amountETH}
           onChange={(e) => setAmountETH(e.target.value)}
         />
       </div>
       <button
-        className="w-full p-2 bg-purple-700 text-white rounded-lg"
+        className="w-full p-3 bg-purple-700 text-white rounded-lg"
         onClick={addLiquidity}
       >
         Add Liquidity

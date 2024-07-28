@@ -62,17 +62,17 @@ const Swap = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-5 rounded-lg">
-      <div className="flex justify-between mb-3">
+    <div className="bg-gray-800 p-6 rounded-lg w-[460px] h-[300px]">
+      <div className="flex justify-between mb-4">
         <input
           type="number"
-          className="text-black p-2 rounded-lg w-2/3"
+          className="text-black p-3 rounded-lg w-3/4"
           placeholder="0"
           value={amountIn}
           onChange={(e) => setAmountIn(e.target.value)}
         />
         <select
-          className="bg-pink-600 text-white p-2 rounded-lg w-1/4"
+          className="bg-pink-600 text-white p-3 rounded-lg w-1/5"
           value={token1}
           onChange={(e) => setToken1(e.target.value)}
         >
@@ -80,10 +80,10 @@ const Swap = () => {
           <option value="USDC">USDC</option>
         </select>
       </div>
-      <div className="text-center my-3">⬇️</div>
-      <div className="flex justify-center mb-3">
+      <div className="text-center my-4 text-2xl">⬇️</div>
+      <div className="flex justify-center mb-4">
         <select
-          className="bg-pink-600 text-white p-2 rounded-lg w-44 text-center"
+          className="bg-pink-600 text-white p-3 rounded-lg w-1/2 text-center"
           value={token2}
           onChange={(e) => setToken2(e.target.value)}
         >
@@ -92,7 +92,7 @@ const Swap = () => {
         </select>
       </div>
       <button
-        className="w-full p-2 bg-purple-700 text-white rounded-lg"
+        className="w-full p-3 bg-purple-700 text-white rounded-lg"
         onClick={handleSwap}
       >
         Swap
