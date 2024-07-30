@@ -10,14 +10,13 @@ import { factoryABI } from "../utils/factoryABI.json";
 const ETH_ADDRESS = "0x7557ddCfb5A0A0F7B19676c7e1D51e6BB01b413D";
 const USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
 
-const Swap = () => {
+const Swap = ({ pairs }: { pairs: any[] }) => {
   const [amountIn, setAmountIn] = useState("");
   const [token1, setToken1] = useState("ETH");
   const [token2, setToken2] = useState("USDC");
   const [token1Address, setToken1Address] = useState(ETH_ADDRESS);
   const [token2Address, setToken2Address] = useState(USDC_ADDRESS);
-  const [allPairsLength, setAllPairsLength] = useState(0);
-  const [pairs, setPairs] = useState<any[]>([]);
+  const [pair, setPair] = useState<string | unknown>("");
 
   const deadline = Number(Math.floor(new Date().getTime() / 1000.0) + "0");
   const account = getAccount(config);
@@ -31,7 +30,8 @@ const Swap = () => {
         functionName: "getPair",
         args: [token1Address, token2Address],
       });
-      console.log("Pair: "+pair);
+      console.log("Pair: " + pair);
+      setPair(pair);
     } catch (error) {
       console.error(error);
     }
@@ -40,48 +40,6 @@ const Swap = () => {
   useEffect(() => {
     getPair();
   }, [token1Address, token2Address]);
-
-  async function fetchAllPairsLength() {
-    try {
-      const allPairsLength = await readContract(config, {
-        abi: factoryABI,
-        address: "0x99d68Edca6959a9a8E65F1A5B7F8295f1946c35e",
-        functionName: "allPairsLength",
-      });
-      setAllPairsLength(Number(allPairsLength));
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function fetchAllPairs(index: number) {
-    try {
-      const pairAddress = await readContract(config, {
-        abi: factoryABI,
-        address: "0x99d68Edca6959a9a8E65F1A5B7F8295f1946c35e",
-        functionName: "allPairs",
-        args: [index],
-      });
-      setPairs((prevPairs) => [...prevPairs, pairAddress]);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    fetchAllPairsLength();
-  }, []);
-
-  useEffect(() => {
-    if (allPairsLength > 0) {
-      for (let i = 0; i < allPairsLength; i++) {
-        fetchAllPairs(i);
-      }
-    }
-  }, [allPairsLength]);
-
-  console.log("pairs " + pairs);
-  console.log("allPairsLength " + allPairsLength);
 
   useEffect(() => {
     if (token1 === "ETH") {
