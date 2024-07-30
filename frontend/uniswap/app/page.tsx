@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <main className="flex justify-center items-center bg-indigo-600 min-h-screen">
-      <div className="bg-gray-900 text-white p-5 rounded-xl w-[500px] h-[400px] mx-auto">
+      <div className="bg-gray-900 text-white p-5 rounded-xl w-[500px] h-[600px] mx-auto">
         <div className="flex justify-center space-x-8 mb-5">
           <button
             className={`w-44 p-2 ${

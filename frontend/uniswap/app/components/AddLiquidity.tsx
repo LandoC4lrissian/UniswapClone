@@ -1,4 +1,3 @@
-// components/AddLiquidity.js
 "use client";
 import React, { useState } from "react";
 import { writeContract } from "@wagmi/core";
