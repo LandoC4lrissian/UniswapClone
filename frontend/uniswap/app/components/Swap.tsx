@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { writeContract, readContract } from "@wagmi/core";
 import { V2Router02ABI } from "../utils/V2Router02ABI.json";
 import { config } from "../utils/config";
@@ -22,6 +22,24 @@ const Swap = () => {
   const deadline = Number(Math.floor(new Date().getTime() / 1000.0) + "0");
   const account = getAccount(config);
   const accountAddress = account?.address || "";
+
+  async function getPair() {
+    try {
+      const pair = await readContract(config, {
+        abi: factoryABI,
+        address: "0x99d68Edca6959a9a8E65F1A5B7F8295f1946c35e",
+        functionName: "getPair",
+        args: [token1Address, token2Address],
+      });
+      console.log("Pair: "+pair);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getPair();
+  }, [token1Address, token2Address]);
 
   async function fetchAllPairsLength() {
     try {
