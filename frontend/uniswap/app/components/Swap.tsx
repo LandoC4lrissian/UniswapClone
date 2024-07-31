@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import { writeContract, readContract } from "@wagmi/core";
 import { V2Router02ABI } from "../utils/V2Router02ABI.json";
 import { config } from "../utils/config";

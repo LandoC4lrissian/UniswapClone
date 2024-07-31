@@ -5,6 +5,7 @@ import AddLiquidity from "./components/AddLiquidity";
 import { readContract } from "@wagmi/core";
 import { config } from "./utils/config";
 import { factoryABI } from "./utils/factoryABI.json";
+import CreatePair from "./components/CreatePair";
 
 export default function Home() {
   const [activeComponent, setActiveComponent] = useState("swap");
@@ -98,7 +99,7 @@ export default function Home() {
         </div>
         <div className="bg-gray-800 p-6 rounded-lg w-[460px] h-[500px] flex flex-col text-center">
         {activeCreateComponent ? (
-            <h1>Cooking...</h1>
+             <CreatePair />
           ) : (
             <>
               <h1 className="mb-8 text-3xl">All Pairs</h1>
