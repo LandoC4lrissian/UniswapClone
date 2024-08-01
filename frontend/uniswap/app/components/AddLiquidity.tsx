@@ -25,6 +25,8 @@ const AddLiquidity = () => {
 
   console.log("token1Balance ", token1Balance);
   console.log("token2Balance ", token2Balance);
+  console.log("price ", price);
+  console.log("deadline ", deadline);
 
   useEffect(() => {
     if (token1Address && token2Address && poolAddress) {
