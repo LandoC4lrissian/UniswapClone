@@ -141,6 +141,7 @@ const AddLiquidity = () => {
           className="text-black p-3 rounded-lg w-full"
           placeholder="Token 2 Amount"
           value={amountToken2}
+          onChange={(e) => setAmountToken2(e.target.value)}
         />
       </div>
       <button
