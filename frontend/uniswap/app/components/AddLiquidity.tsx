@@ -141,7 +141,6 @@ const AddLiquidity = () => {
           className="text-black p-3 rounded-lg w-full"
           placeholder="Token 2 Amount"
           value={amountToken2}
-          readOnly
         />
       </div>
       <button
