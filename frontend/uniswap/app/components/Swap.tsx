@@ -1,11 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { writeContract, readContract } from "@wagmi/core";
 import { V2Router02ABI } from "../utils/V2Router02ABI.json";
 import { config } from "../utils/config";
 import { getAccount } from "@wagmi/core";
 import { parseEther } from "viem";
 import { factoryABI } from "../utils/factoryABI.json";
+import { WETHABI } from "../utils/WETHABI.json";
 
 const ETH_ADDRESS = "0x7557ddCfb5A0A0F7B19676c7e1D51e6BB01b413D";
 const USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
@@ -17,6 +18,7 @@ const Swap = ({ pairs }: { pairs: any[] }) => {
   const [token1Address, setToken1Address] = useState(ETH_ADDRESS);
   const [token2Address, setToken2Address] = useState(USDC_ADDRESS);
   const [pair, setPair] = useState<string | unknown>("");
+  const [decimals, setDecimals] = useState(18);
 
   const deadline = Number(Math.floor(new Date().getTime() / 1000.0) + "0");
   const account = getAccount(config);
@@ -61,6 +63,24 @@ const Swap = ({ pairs }: { pairs: any[] }) => {
     }
   }, [token2]);
 
+  useEffect(() => {
+    getTokenDecimals();
+  }, [token1Address]);
+
+  async function getTokenDecimals() {
+    try {
+      const decimals = await readContract(config, {
+        abi: WETHABI,
+        address: token1Address,
+        functionName: "decimals",
+      });
+      console.log("Token1 Decimal: ", decimals);
+      setDecimals(Number(decimals));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async function swapExactETHForTokens() {
     try {
       const swapExactETHForTokens = await writeContract(config, {
@@ -83,7 +103,7 @@ const Swap = ({ pairs }: { pairs: any[] }) => {
         address: "0x63656d7917FcBaAd1A4A75a048da32778C695eD3",
         functionName: "swapExactTokensForETH",
         args: [
-          (Number(amountIn) * 10) ^ 6,
+          (Number(amountIn) * 10) ^ decimals,
           0,
           [token1Address, token2Address],
           accountAddress,

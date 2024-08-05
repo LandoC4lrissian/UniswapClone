@@ -6,6 +6,7 @@ import { readContract } from "@wagmi/core";
 import { config } from "./utils/config";
 import { factoryABI } from "./utils/factoryABI.json";
 import CreatePair from "./components/CreatePair";
+import Approve from "./components/Approve";
 
 export default function Home() {
   const [activeComponent, setActiveComponent] = useState("swap");
@@ -52,12 +53,9 @@ export default function Home() {
     }
   }, [allPairsLength]);
 
-  console.log("pairs " + pairs);
-  console.log("allPairsLength " + allPairsLength);
-
   return (
-    <main className="flex flex-row justify-center items-center bg-indigo-600 min-h-screen">
-      <div className="bg-gray-900 text-white p-5 rounded-xl w-[500px] h-[600px] mx-auto">
+    <main className="flex flex-row justify-center items-center bg-indigo-600 min-h-screen space-x-12">
+      <div className="bg-gray-900 text-white p-5 rounded-xl w-[500px] h-[600px] mx-2">
         <div className="flex justify-center space-x-8 mb-5">
           <button
             className={`w-44 p-2 ${
@@ -75,12 +73,26 @@ export default function Home() {
           >
             Add Liquidity
           </button>
+          <button
+            className={`w-44 p-2 ${
+              activeComponent === "approve" ? "bg-purple-700" : "bg-gray-700"
+            } text-white rounded-lg`}
+            onClick={() => setActiveComponent("approve")}
+          >
+            Approve
+          </button>
         </div>
-        {activeComponent === "swap" ? <Swap pairs={pairs} /> : <AddLiquidity />}
+        {activeComponent === "swap" ? (
+          <Swap pairs={pairs} />
+        ) : activeComponent === "liquidity" ? (
+          <AddLiquidity />
+        ) : (
+          <Approve />
+        )}
       </div>
-      <div className="bg-gray-900 text-white p-5 rounded-xl w-[500px] h-[600px] mx-auto">
+      <div className="bg-gray-900 text-white p-5 rounded-xl w-[500px] h-[600px] mx-2">
         <div className="flex justify-center space-x-8 mb-5">
-        <button
+          <button
             className={`w-44 p-2 ${
               activeCreateComponent === true ? "bg-purple-700" : "bg-gray-700"
             } text-white rounded-lg`}
@@ -89,21 +101,21 @@ export default function Home() {
             Create Pair
           </button>
           <button
-           className={`w-44 p-2 ${
-            activeCreateComponent === false ? "bg-purple-700" : "bg-gray-700"
-          } text-white rounded-lg`}
+            className={`w-44 p-2 ${
+              activeCreateComponent === false ? "bg-purple-700" : "bg-gray-700"
+            } text-white rounded-lg`}
             onClick={() => setActiveCreateComponent(false)}
           >
             Pairs List
           </button>
         </div>
         <div className="bg-gray-800 p-6 rounded-lg w-[460px] h-[500px] flex flex-col text-center">
-        {activeCreateComponent ? (
-             <CreatePair />
+          {activeCreateComponent ? (
+            <CreatePair />
           ) : (
             <>
               <h1 className="mb-8 text-3xl">All Pairs</h1>
-              <div className="space-y-4">
+              <div className="space-y-4 overflow-y-auto h-[350px]">
                 {pairs.map((pair) => (
                   <div key={pair}>{pair}</div>
                 ))}

@@ -36,7 +36,7 @@ const AddLiquidity = () => {
   }, [token1Address, token2Address, poolAddress]);
 
   useEffect(() => {
-    if (token1Decimals && token2Decimals) {
+    if (token1Decimals && token2Decimals && poolAddress) {
       getBalance(token1Address, setToken1Balance, token1Decimals);
       getBalance(token2Address, setToken2Balance, token2Decimals);
     }
