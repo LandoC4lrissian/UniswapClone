@@ -96,6 +96,8 @@ const Swap = ({ pairs }: { pairs: any[] }) => {
     }
   }
 
+  const amountInParsed = BigInt((Number(amountIn) * 10 ** decimals).toString());
+
   async function swapExactTokensForETH() {
     try {
       const swapExactTokensForETH = await writeContract(config, {
@@ -103,7 +105,7 @@ const Swap = ({ pairs }: { pairs: any[] }) => {
         address: "0x63656d7917FcBaAd1A4A75a048da32778C695eD3",
         functionName: "swapExactTokensForETH",
         args: [
-          (Number(amountIn) * 10) ^ decimals,
+          amountInParsed,
           0,
           [token1Address, token2Address],
           accountAddress,
